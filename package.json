@@ -1,0 +1,13 @@
+{
+    "name": "test-electron-app",
+    "version": "0.1.0",
+    "author": "sabit",
+    "description": "My Electron app",
+    "main": "main.js",
+    "scripts": {
+        "start": "nodemon --exec electron ."
+    },
+    "dependencies": {
+        "nodemon": "^2.0.7"
+    }
+}
