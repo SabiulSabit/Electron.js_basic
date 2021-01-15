@@ -1,5 +1,6 @@
 // Modules
 const {app, BrowserWindow} = require('electron')
+const windowStateKeeper =  require('electron-window-state')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -8,34 +9,45 @@ let mainWindow,secendaryWindow;
 // Create a new BrowserWindow when `app` is ready
 function createWindow () {
 
+  let winSatae = windowStateKeeper({
+    defaultWidth: 1000,
+    defaultHeight: 800,
+  })
+
   mainWindow = new BrowserWindow({
-    width: 1000, height: 800,
+    width: winSatae.width, height: winSatae.height,
+    x: winSatae.x,
+    y: winSatae.y,
     webPreferences: { nodeIntegration: true },
     show: false
   })
-  secendaryWindow = new BrowserWindow({
-    width: 600, height: 400,
-    webPreferences: { nodeIntegration: true },
-    show: false,
-    parent: mainWindow,
-    modal: true,
-  })
+  // secendaryWindow = new BrowserWindow({
+  //   width: 600, height: 400,
+  //   webPreferences: { nodeIntegration: true },
+  //   show: false,
+  //   parent: mainWindow,
+  //   frame: false,
+  //   modal: true,
+  // })
   // Load index.html into the new BrowserWindow
   mainWindow.loadFile('index.html')
-  secendaryWindow.loadFile('secendary.html')
+ // secendaryWindow.loadFile('secendary.html')
 
   // Open DevTools - Remove for PRODUCTION!
  // mainWindow.webContents.openDevTools()
 
   mainWindow.once('ready-to-show',mainWindow.show)
-  secendaryWindow.once('ready-to-show',secendaryWindow.show)
+ // secendaryWindow.once('ready-to-show',secendaryWindow.show)
+
+   winSatae.manage(mainWindow);  
+
   // Listen for window being closed
   mainWindow.on('closed',  () => {
     mainWindow = null
   })
-  secendaryWindow.on('closed',  () => {
-    secendaryWindow = null
-  })
+  // secendaryWindow.on('closed',  () => {
+  //   secendaryWindow = null
+  // })
 }
 
 // Electron `app` is ready
