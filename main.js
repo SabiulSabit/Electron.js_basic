@@ -1,5 +1,5 @@
 // Modules
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, globalShortcut} = require('electron')
 const windowStateKeeper =  require('electron-window-state')
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -48,6 +48,10 @@ function createWindow () {
   // secendaryWindow.on('closed',  () => {
   //   secendaryWindow = null
   // })
+
+  globalShortcut.register("G", () =>{
+    console.log("G Presed");
+  })
 }
 
 // Electron `app` is ready
