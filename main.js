@@ -1,10 +1,11 @@
 // Modules
-const {app, BrowserWindow, globalShortcut} = require('electron')
+const {app, BrowserWindow, globalShortcut, Menu, MenuItem}  = require('electron')
 const windowStateKeeper =  require('electron-window-state')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow,secendaryWindow;
+let mainMenu = Menu.buildFromTemplate( require('./menu') )
 
 // Create a new BrowserWindow when `app` is ready
 function createWindow () {
@@ -31,6 +32,7 @@ function createWindow () {
   // })
   // Load index.html into the new BrowserWindow
   mainWindow.loadFile('index.html')
+  Menu.setApplicationMenu(mainMenu)
  // secendaryWindow.loadFile('secendary.html')
 
   // Open DevTools - Remove for PRODUCTION!
